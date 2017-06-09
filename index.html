@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.01, user-scalable=no">
+    <title>小鸟求生</title>
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-9899211649531463",
+        enable_page_level_ads: true
+      });
+    </script>
+</head>
+<body style="background-color: #000000">
+
+        <div id="wrongRotation">
+            <img src="assets/img_480/rotate_screen.png" alt=""/>
+        </div>
+
+        <div class="font_preload" style="opacity: 0">
+            <span style="font-family: 'gameFont', Tahoma, sans-serif;"></span>
+        </div>
+         <!-- appAds -->
+     <script>
+
+        var _lang = {
+            'MAIN_MENU':'主 菜 单',
+            'BEST_SCORE':'最 高 分',
+            'CHOOSE_BIRDY':'选 择 小 鸟',
+            'CHOOSE_GRAPHIC':'选 择 地 图',
+            'GAME_OVER':'游 戏 结 束',
+            'INSTRUCTIONS_TOUCH':' ',
+            'INSTRUCTIONS':' '
+            };
+
+        var jokejs = {
+
+            '__' : function(str){
+                if(str in _lang){
+                    return _lang[str];
+                }
+                return str;
+            },
+            localStorage : window.localStorage,
+            submitHighscore : function(){
+                console.log('ads');
+            },
+            showAd : function(call){
+                try{
+                    console.log('ads');
+                    call();
+                }catch(e){
+
+                }
+            },
+            gameOver : function(){
+                console.log('games over');
+            },
+            levelUp : function(){
+                
+            },
+            getMoreGamesButtonImage : function(){
+
+                return "more/my.png";
+            },
+            log : function(str){
+
+               // console.log(str);
+            }
+        }
+
+        var NUM_C = 0;
+
+        function Joke_Ad(){
+
+            NUM_C++;
+
+            if(NUM_C > 3){
+
+                NUM_C = 0;
+
+                try{
+
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+
+                    return 1;
+
+                }catch(e){
+                    return 1;
+                }
+
+               
+
+            }
+
+        }
+
+    </script>
+
+    <script src="js/all.js"></script>
+
+    <script>
+        
+
+        var game = new Phaser.Game(resolutionX, resolutionY, renderer, '', null, false, false);
+        game.forceSingleUpdate = true;
+
+        game.state.add("SplashState", Splash);
+        game.state.add("PreloadState", Preloader);
+        game.state.add("GameState", GameState);
+
+        game.state.start("SplashState");
+     
+ 
+    </script>
+
+</body>
+</html>
