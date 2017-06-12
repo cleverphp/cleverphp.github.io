@@ -4,122 +4,225 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.01, user-scalable=no">
-    <title>小鸟求生</title>
-
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/game.css">
+    <title>PHP/JS/PYTHON/MYSQL/SQLITE/HTML5/CSS3/ANGULARJS/NODEJS/JAVA</title>
     <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
-
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-9899211649531463",
-        enable_page_level_ads: true
-      });
-    </script>
 </head>
-<body style="background-color: #000000">
+<body>
 
-        <div id="wrongRotation">
-            <img src="assets/img_480/rotate_screen.png" alt=""/>
-        </div>
+    <h4 class="h-title">This site for technologies showing only...</h4>
 
-        <div class="font_preload" style="opacity: 0">
-            <span style="font-family: 'gameFont', Tahoma, sans-serif;"></span>
-        </div>
-         <!-- appAds -->
-     <script>
+    <p class="lang-divide">PHP</p>
 
-        var _lang = {
-            'MAIN_MENU':'主 菜 单',
-            'BEST_SCORE':'最 高 分',
-            'CHOOSE_BIRDY':'选 择 小 鸟',
-            'CHOOSE_GRAPHIC':'选 择 地 图',
-            'GAME_OVER':'游 戏 结 束',
-            'INSTRUCTIONS_TOUCH':' ',
-            'INSTRUCTIONS':' '
+    <p class="paragraph">Something not being well known...</p>
+
+    <p class="second-name">1.new static && new self difference</p>
+    
+    <div>
+        <pre><code>
+            //for new self,it will be always represent the class declare it,while new static will change with the actual class.
+            class A{
+                public static function one(){
+                    return new self;
+                }
+                public static function two(){
+                    return new static;
+                }
+            }
+            class B extends A{
+            }
+            echo get_class(B::two()); // B
+            echo get_class(B::one()); //A
+        </code></pre>
+    </div>
+
+    <p class="second-name">2.PHP AOP(Aspect Oriented Programing)</p>
+    
+    <div>
+        <pre><code>
+            /***
+                for aop,it is supplements for oop while not as a replacement,as oop generator many objects and each object
+                seperated by others,when we want to change somethings applying all objects,we use aop,follow is an example
+                for simply achieving,complex and production should reference https://github.com/AOP-PHP/AOP...
+            ***/
+                class Main{
+                    public function __construct(){
+                        AOP::start();
+                    }
+                }
+                class A extends Main{
+                    public function __construct(){
+                        parent::__construct();
+                    }
+                }
+                class B extends Main{
+                    public function __construct(){
+                        parent::__construct();
+                    }
+                }
+                class AOP{
+                    static function start(){
+                        echo "when changes,all objects changes...";
+                    }
+                }
+        </code></pre>
+    </div>
+
+    <p class="second-name">3.Anonymous Functions</p>
+    
+    <div>
+        <pre><code>
+            /***
+                if you know yii,symfony,you should find that many places using anonymous function...
+            ***/
+            $a = "hello world";
+            $b = function() use($a){
+                return $a;
             };
+            echo $b();//hello world
+        </code></pre>
+    </div>
 
-        var jokejs = {
+    <p class="lang-divide">JS</p>
 
-            '__' : function(str){
-                if(str in _lang){
-                    return _lang[str];
-                }
-                return str;
-            },
-            localStorage : window.localStorage,
-            submitHighscore : function(){
-                console.log('ads');
-            },
-            showAd : function(call){
-                try{
-                    console.log('ads');
-                    call();
-                }catch(e){
+    <p class="paragraph">prototype and design patterns observer...</p>
 
-                }
-            },
-            gameOver : function(){
-                console.log('games over');
-            },
-            levelUp : function(){
-                
-            },
-            getMoreGamesButtonImage : function(){
+    <p class="second-name">1.prototype</p>
 
-                return "more/my.png";
-            },
-            log : function(str){
+    <div>
+        <pre><code>
+            /***
+                all is object in js...
+            ***/
+            var el = document.body.childNodes;
+            Array.prototype.slice.call(el).forEach(function(v){
+                console.log(v);
+            });
+            String.prototype.test = function(){
+                return this.slice(0,1);
+            };
+            console.log('hello'.test()); //h
+        </code></pre>
+    </div>
+    <p class="second-name">2.design patterns(observer)</p>
+    <div>
+        <pre><code>
+            /***
+                it likes a watcher,when what watched changes,do something then(mostly notify others)...
+            ***/
+            var watcher = (function(){
+                var require_watches = [];
+                var put_el = function(v){
+                    require_watches.push(v);
+                };
+                var doSome = function(){
+                    console.log('changed');
+                };
+                return {
+                    list : require_watches,
+                    num : 0,
+                    changed : false,
+                    putEl : put_el,
+                    doSome : function(){
+                        doSome();
+                        this.changed = false;
+                    },
+                    listenStart : function(){
+                        setInterval(this.listen,1000);
+                    },
+                    listen : function(){
+                        var len = this.list.length;
+                        if(len != num){
+                            this.changed = true;
+                            this.doSome();
+                            this.num = len;
+                        }
+                    }
+                };
+            })();
+            watcher.listenStart();//when putEl,will invoke watching func
+        </code></pre>
+    </div>
 
-               // console.log(str);
+    <p class="lang-divide">PYTHON</p>
+
+    <p class="paragraph">let's test mysql connecting...</p>
+
+    <p class="second-name">1.just for simples</p>
+
+    <div>
+        <pre><code>
+            #I like the code style...
+            #!/usr/bin/python
+            #encoding=utf-8
+            import pymysql
+            con = pymysql.connect(host,user,passwd,dbname,use_unicode=True,charset="utf-8")
+            cursor = con.cursor(pymysql.cursors.DictCursor)
+            sql = "select * from test"
+            cursor.execute(sql)
+            res = cursor.fetchall()
+            for i in res:
+                print i[col]
+        </code></pre>
+    </div>
+
+    <p class="lang-divide">JAVA</p>
+
+    <p class="paragraph">Anyone who is programmer should know it...</p>
+
+    <p class="second-name">1.hash examples</p>
+
+    <div style="margin-bottom:100px;">
+        <pre><code>
+        import java.security.*;
+        public class Hash {
+            /**
+             * @param txt, text in plain format
+             * @param hashType MD5 OR SHA1
+             * @return hash in hashType 
+             */
+            public static String getHash(String txt, String hashType) {
+                try {
+                        java.security.MessageDigest md = java.security.MessageDigest.getInstance(hashType);
+                        byte[] array = md.digest(txt.getBytes());
+                        StringBuffer sb = new StringBuffer();
+                        for (int i = 0; i < array.length; ++i) {
+                            sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
+                        }
+                        return sb.toString();
+                    } catch (java.security.NoSuchAlgorithmException e) {
+                        //error action
+                    }
+                    return null;
+            }
+            public static String md5(String txt) {
+                return Hash.getHash(txt, "MD5");
+            }
+
+            public static String sha1(String txt) {
+                return Hash.getHash(txt, "SHA1");
             }
         }
+        </code></pre>
+    </div>
 
-        var NUM_C = 0;
+    <div style="position:fixed;bottom:0px;height:100px;">
 
-        function Joke_Ad(){
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-9899211649531463"
+             data-ad-slot="4937595839"
+             data-ad-format="auto"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
 
-            NUM_C++;
-
-            if(NUM_C > 3){
-
-                NUM_C = 0;
-
-                try{
-
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-
-                    return 1;
-
-                }catch(e){
-                    return 1;
-                }
-
-               
-
-            }
-
-        }
-
-    </script>
-
-    <script src="js/all.js"></script>
-
-    <script>
-        
-
-        var game = new Phaser.Game(resolutionX, resolutionY, renderer, '', null, false, false);
-        game.forceSingleUpdate = true;
-
-        game.state.add("SplashState", Splash);
-        game.state.add("PreloadState", Preloader);
-        game.state.add("GameState", GameState);
-
-        game.state.start("SplashState");
-     
- 
-    </script>
+    </div>
 
 </body>
 </html>
