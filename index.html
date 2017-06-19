@@ -177,7 +177,7 @@
 
     <p class="second-name">1.hash examples</p>
 
-    <div style="margin-bottom:100px;">
+    <div>
         <pre><code>
         import java.security.*;
         public class Hash {
@@ -208,6 +208,51 @@
                 return Hash.getHash(txt, "SHA1");
             }
         }
+        </code></pre>
+    </div>
+    <p class="lang-divide">REDIS</p>
+
+    <p class="paragraph">A better key-value NOSQL Storage System...</p>
+
+    <p class="second-name">1.like memcached string examples</p>
+
+    <div>
+        <pre><code>
+            $redis = new Redis();
+            $redis->connect("127.0.0.1","6379");
+            $redis->set("test","test_value");
+            echo $redis->exists("test") ? $redis->get("test") : "not found key";//test_value
+        </code></pre>
+    </div>
+
+    <p class="second-name">2.frequently used list examples</p>
+
+    <div>
+        <pre><code>
+            $redis = new Redis();
+            $redis->connect("127.0.0.1","6379");
+            $redis->lpush("testlist","value1");
+            $redis->lpush("testlist","value2");
+            $redis->lpush("testlist","value3");
+            echo $redis->exists("testlist") ? var_export($redis->lrange("testlist",0,10),true) : "not found key";
+        </code></pre>
+    </div>
+
+    <p class="second-name">3.sql like used incr/incrby,decr/decrby</p>
+
+    <div style="margin-bottom:100px;">
+        <pre><code>
+            $redis = new Redis();
+            $redis->connect("127.0.0.1","6379");
+            $redis->set("views",1);
+            $redis->incr("views");
+            echo $redis->get("views"); //2
+            $redis->decr("views");
+            echo $redis->get("views"); //1
+            $redis->incrby("views",100);
+            echo $redis->get("views"); //101
+            $redis->decrby("views",100);
+            echo $redis->get("views"); //1
         </code></pre>
     </div>
 
