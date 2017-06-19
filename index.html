@@ -253,6 +253,9 @@
             echo $redis->get("views"); //101
             $redis->decrby("views",100);
             echo $redis->get("views"); //1
+            //ps:if you want to delete a redis key,just use del method,examples:$redis->del("views");
+            //if you want to get all keys,use $redis->keys("*");
+            //if just for special patterns,use $redis->keys("pattern_*") will match all keys that prefix is pattern_;
         </code></pre>
     </div>
 
