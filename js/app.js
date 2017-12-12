@@ -79,6 +79,8 @@ function initMap(num){
 
 	$.ajax("/map/map.json").done().always(function(data){
 
+			console.log(data);
+
 			var map = JSON.parse(data);
 
 			var scope = angular.element(document.body).scope();
