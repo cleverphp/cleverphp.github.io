@@ -1,0 +1,106 @@
+在策略模式（Strategy Pattern）中，一个类的行为或其算法可以在运行时更改。这种类型的设计模式属于行为型模式。
+例子：
+支付方式的选择
+// Class to pay using Credit Card
+class payByCC {
+ 
+    private $ccNum = '';
+    private $ccType = '';
+    private $cvvNum = '';
+    private $ccExpMonth = '';
+    private $ccExpYear = '';
+     
+    public function pay($amount = 0) {
+        echo "Paying ". $amount. " using Credit Card";
+    }
+     
+}
+ 
+// Class to pay using PayPal
+class payByPayPal {
+ 
+    private $payPalEmail = '';
+     
+    public function pay($amount = 0) {
+        echo "Paying ". $amount. " using PayPal";
+    }
+ 
+}
+ 
+// This code needs to be repeated every place where ever needed.
+$amount  = 5000;
+if($amount >= 500) {
+    $pay = new payByCC();
+    $pay->pay($amount);
+} else {
+    $pay = new payByPayPal();
+    $pay->pay($amount);
+}
+如果不采取策略模式，那就是条件语句，一旦修改，那就所有用到条件语句的都要修改
+采用策略模式如下：
+interface payStrategy {
+    public function pay($amount);
+}
+ 
+class payByCC implements payStrategy {
+     
+     
+    private $ccNum = '';
+    private $ccType = '';
+    private $cvvNum = '';
+    private $ccExpMonth = '';
+    private $ccExpYear = '';
+     
+    public function pay($amount = 0) {
+        echo "Paying ". $amount. " using Credit Card";
+    }
+     
+}
+class payByPayPal implements payStrategy {
+ 
+    private $payPalEmail = '';
+     
+    public function pay($amount = 0) {
+        echo "Paying ". $amount. " using PayPal";
+    }
+ 
+}
+class shoppingCart {
+     
+    public $amount = 0;
+     
+    public function __construct($amount = 0) {
+        $this->amount = $amount;
+    }
+     
+    public function getAmount() {
+        return $this->amount;
+    }
+     
+    public function setAmount($amount = 0) {
+        $this->amount = $amount;
+    }
+ 
+    public function payAmount() {
+        if($this->amount >= 500) {
+            $payment = new payByCC();
+        } else {
+            $payment = new payByPayPal();
+        }
+         
+        $payment->pay($this->amount);
+    }
+}
+ 
+$cart = new shoppingCart(499);
+$cart->payAmount();
+ 
+// Output
+Paying 499 using PayPal
+ 
+$cart = new shoppingCart(501);
+$cart->payAmount();
+ 
+//Output 
+Paying 501 using Credit Card
+简单看来，外部调用随着参数不同，使用的内部类就不同，代码可维护性更好

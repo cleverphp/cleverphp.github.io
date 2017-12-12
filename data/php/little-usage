@@ -1,0 +1,46 @@
+//for new self,it will be always represent the class declare it,while new static will change with the actual class.
+class A{
+    public static function one(){
+        return new self;
+    }
+    public static function two(){
+        return new static;
+    }
+}
+class B extends A{
+}
+echo get_class(B::two()); // B
+echo get_class(B::one()); //A
+/***
+	for aop,it is supplements for oop while not as a replacement,as oop generator many objects and each object
+	seperated by others,when we want to change somethings applying all objects,we use aop,follow is an example
+	for simply achieving,complex and production should reference https://github.com/AOP-PHP/AOP...
+***/
+class Main{
+    public function __construct(){
+        AOP::start();
+    }
+}
+class A extends Main{
+    public function __construct(){
+        parent::__construct();
+    }
+}
+class B extends Main{
+    public function __construct(){
+        parent::__construct();
+    }
+}
+class AOP{
+    static function start(){
+        echo "when changes,all objects changes...";
+    }
+}
+/***
+ if you know yii,symfony,you should find that many places using anonymous function...
+ ***/
+$a = "hello world";
+$b = function() use($a){
+    return $a;
+};
+echo $b();//hello world

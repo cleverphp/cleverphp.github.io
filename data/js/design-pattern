@@ -1,0 +1,46 @@
+/***
+ all is object in js...
+***/
+var el = document.body.childNodes;
+Array.prototype.slice.call(el).forEach(function(v){
+    console.log(v);
+});
+String.prototype.test = function(){
+    return this.slice(0,1);
+};
+console.log('hello'.test()); //h
+
+/***
+    it likes a watcher,when what watched changes,do something then(mostly notify others)...
+***/
+var watcher = (function(){
+    var require_watches = [];
+    var put_el = function(v){
+        require_watches.push(v);
+    };
+    var doSome = function(){
+        console.log('changed');
+    };
+    return {
+        list : require_watches,
+        num : 0,
+        changed : false,
+        putEl : put_el,
+        doSome : function(){
+            doSome();
+            this.changed = false;
+        },
+        listenStart : function(){
+            setInterval(this.listen,1000);
+        },
+        listen : function(){
+            var len = this.list.length;
+            if(len != num){
+                this.changed = true;
+                this.doSome();
+                this.num = len;
+            }
+        }
+    };
+})();
+watcher.listenStart();//when putEl,will invoke watching func               

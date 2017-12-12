@@ -1,0 +1,30 @@
+1. CSS 3 Selectors
+[attr^=val] Â- matches a DOM element with the attribute attr and a value starting with val
+[attr$=val] Â- matches a DOM element with the attribute attr and a value ending with the suffix val
+[attr*=val] Â- matches a DOM element with the attribute attr and a value containing the substring val
+2. CSS 3 Rounded Corners
+border-radius 
+3. CSS 3 Border Image
+key* : border:15px solid transparent;
+----------平铺-----
+key* :  -webkit-border-image:url(border.png) 30 30 round; /* Safari 5 and older */
+		-o-border-image:url(border.png) 30 30 round; /* Opera */
+		border-image:url(border.png) 30 30 round;
+----------拉伸-----
+key* :	-webkit-border-image:url(border.png) 30 30 stretch; /* Safari 5 and older */
+		-o-border-image:url(border.png) 30 30 stretch; /* Opera */
+		border-image:url(border.png) 30 30 stretch;
+4. CSS 3 Box Shadow
+box-shadow:1px 1px 1px black;
+5. CSS 3 Text Shadow
+text-shadow:1px 1px 1px black;
+6. CSS 3 Gradient
+渐变--分为linear/radial线性渐变与放射性渐变
+7. CSS 3 RGBA: Color, Now with Opacity
+最后一个值定义透明度
+8. CSS 3 Transform (Element Rotation)
+旋转的元素
+9. CSS 3 Multicolumn Layout
+多列布局
+10. CSS 3 Web Fonts
+使用网络的字体

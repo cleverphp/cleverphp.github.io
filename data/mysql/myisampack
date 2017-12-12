@@ -1,0 +1,5 @@
+4.6.5 myisampack — Generate Compressed, Read-Only MyISAM Tables
+The myisampack utility compresses MyISAM tables. myisampack works by compressing each column in the table separately. Usually, myisampack packs the data file 40% to 70%.
+具体应用：
+shell> myisampack file_name ... 指定表文件名，可省略.MYI
+shell> myisamchk -rq #rebuild indexs

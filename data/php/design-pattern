@@ -1,0 +1,34 @@
+/**
+ * 单例模式下ORM数据库
+ */
+class Model{
+    static $link;
+    static $model;
+    private function __construct(){}
+    private function __clone(){}
+    static function DB(){
+
+        if(self::$model instanceof self){
+            return self::$model;
+        }else{
+
+            try{
+                self::$link = new PDO($dsn,"","");
+            }catch(PDOException $e){
+
+            }
+
+            self::$model =  new self;
+
+            return self::$model;
+
+        }
+
+    }
+
+    public function execute($sql){
+        return self::$link->exec($sql);
+    }
+
+    ...
+}

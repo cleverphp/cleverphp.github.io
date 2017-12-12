@@ -1,0 +1,43 @@
+适配器模式（Adapter Pattern）是作为两个不兼容的接口之间的桥梁。这种类型的设计模式属于结构型模式，它结合了两个独立接口的功能
+例子：
+<?php
+class PayPal {
+ 
+    public function __construct() {
+        // Your Code here //
+    }
+ 
+    public function sendPayment($amount) {
+        // Paying via Paypal //
+        echo "Paying via PayPal: ". $amount;
+    }
+}
+ 
+$paypal = new PayPal();
+
+//现在Paypal这个类看成是第三方类，如果我们直接拿来就用，而正好第三方类改了方法sendPayment为Payment，所有与之相关的修改就会变得很麻烦，此种引用第三方类的场景，可以考虑设计一个适配器
+
+创建新的接口，用来适配第三方类而又统一现有的类调用
+
+// Simple Interface for each Adapter we create
+interface paymentAdapter {
+    public function pay($amount);
+}
+ 
+class paypalAdapter implements paymentAdapter {
+     
+    private $paypal;
+ 
+    public function __construct(PayPal $paypal) {
+        $this->paypal = $paypal;
+    }
+     
+    public function pay($amount) {
+        $this->paypal->sendPayment($amount);
+    }
+}
+
+调用支付只需 new paypalAdapter(new Paypal)->pay($amount);
+
+无论第三类如何修改，我们只需要修改适配器，就可以确保所有代码正常运行
+

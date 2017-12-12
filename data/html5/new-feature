@@ -1,0 +1,47 @@
+1: <video> and <audio>
+<video width="320" height="240" poster="播放前的图片" controls autoplay>
+  <source src="movie.mp4"  type="video/mp4">
+  <source src="movie.ogg"  type="video/ogg">
+  您的浏览器不支持 HTML5 video 标签。
+</video>
+2: <input> type attributes
+常用的 type="email" type="number" 等等
+3: <canvas>
+游戏的最佳选择
+4: <header> and <footer>
+做给搜素引擎看的标签
+5: <article> and <section>
+单页的定位
+6: <output>
+<form oninput="x.value=parseInt(a.value)+parseInt(b.value)">0
+<input type="range" id="a" value="50">100
++<input type="number" id="b" value="50">
+=<output name="x" for="a b"></output>
+</form>
+明显省略了去写js
+7: <details>
+<details>
+<summary>examples.</summary> 
+<p> - for examples.</p>
+<p>All content and graphics ...</p>
+</details>
+8: <figure> and <figcaption>
+<figure>
+	<figcaption>Fig.1 - A view of the pulpit rock in Norway.</figcaption>
+  	<img src="img_pulpit.jpg" alt="The Pulpit Rock" width="304" height="228">
+</figure>
+9: <progress>and <meter>
+<progress value="1" max=10></progress>
+
+<p>展示给定的数据范围：</p>
+<meter value="2" min="0" max="10"></meter><br>
+<meter value="0.6"></meter>
+10: <datalist>
+<input list="browsers" name="browser">
+<datalist id="browsers">
+  <option value="Internet Explorer">
+  <option value="Firefox">
+  <option value="Chrome">
+  <option value="Opera">
+  <option value="Safari">
+</datalist>

@@ -1,0 +1,98 @@
+外观模式（Facade Pattern）隐藏系统的复杂性，并向客户端提供了一个客户端可以访问系统的接口。这种类型的设计模式属于结构型模式，它向现有的系统添加一个接口，来隐藏系统的复杂性。
+这种模式涉及到一个单一的类，该类提供了客户端请求的简化方法和对现有系统类方法的委托调用。
+例子：购物车
+A simple checkout process includes the following steps:
+Add product to cart.
+Calculate shipping charge.
+Calculate discount.
+Generate order.
+代码实现:
+// Simple CheckOut Process
+$productID = $_GET['productId'];
+ 
+$qtyCheck = new productQty();
+ 
+if($qtyCheck->checkQty($productID) > 0) {
+     
+    // Add Product to Cart
+    $addToCart = new addToCart($productID);
+     
+    // Calculate Shipping Charge
+    $shipping = new shippingCharge();
+    $shipping->updateCharge();
+     
+    // Calculate Discount Based on 
+    $discount = new discount();
+    $discount->applyDiscount();
+     
+    $order = new order();
+    $order->generateOrder();
+}
+可能遇到的问题:
+这些结算process就相当于子系统，如果分散在各处，修改就会比较麻烦，实现Facade模式，统一调用，修改就可以只改facade层。具体代码如下：
+class productOrderFacade {
+         
+    public $productID = '';
+     
+    public function __construct($pID) {
+        $this->productID = $pID;
+    }
+     
+    public function generateOrder() {
+         
+        if($this->qtyCheck()) {
+             
+            // Add Product to Cart
+            $this->addToCart();
+             
+            // Calculate Shipping Charge
+            $this->calulateShipping();
+             
+            // Calculate Discount if any
+            $this->applyDiscount();
+             
+            // Place and confirm Order
+            $this->placeOrder();
+             
+        }
+         
+    }
+     
+    private function addToCart () {
+        /* .. add product to cart ..  */
+    }
+     
+    private function qtyCheck() {
+         
+        $qty = 'get product quantity from database';
+         
+        if($qty > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+     
+     
+    private function calulateShipping() {
+        $shipping = new shippingCharge();
+        $shipping->calculateCharge();
+    }
+     
+    private function applyDiscount() {
+        $discount = new discount();
+        $discount->applyDiscount();
+    }
+     
+    private function placeOrder() {
+        $order = new order();
+        $order->generateOrder();
+    }
+}
+写好facade后，调用订单十分简单：
+// Note: We should not use direct get values for Database queries to prevent SQL injection
+$productID = $_GET['productId'];
+// Just 2 lines of code in all places, instead of a lengthy process everywhere
+$order = new productOrderFacade($productID);
+$order->generateOrder();
+结论：当需要实现统一接口委托事务的时候，可以考虑Facade设计模式
