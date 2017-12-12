@@ -77,11 +77,13 @@ function cloneObject(obj){
 
 function initMap(num){
 
-	$.ajax("/map/map.json").done().always(function(data){
+	$.ajax({
+		url : "/map/map.json",
+		type : 'get',
+		dataType : 'json'
+	}).done().always(function(data){
 
-			console.log(data);
-
-			var map = JSON.parse(data);
+			var map = data;
 
 			var scope = angular.element(document.body).scope();
 
