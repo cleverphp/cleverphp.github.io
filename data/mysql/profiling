@@ -1,0 +1,34 @@
+有时候，我们发现一条sql语句执行时间过长，但怎么也找不到该从何处下手，索引，类型，i/o，内存都没问题，可能就需要用下分析工具了。当然，分析工具很多，但可以用如下命令试试
+1.会话层开启profiling
+mysql->set profiling = 1;
+2.#执行查询
+mysql->select * from test;
+3.show profiles
++----------+------------+--------------------------------+
+| Query_ID | Duration   | Query                          |
++----------+------------+--------------------------------+
+|        1 | 0.00024225 | select * from test 
++----------+------------+--------------------------------+
+可以看到执行时间精度大大提高，进一步分析具体查询步骤
+4.show profile for query 1;
++----------------------+----------+
+| Status               | Duration |
++----------------------+----------+
+| starting             | 0.000031 |
+| checking permissions | 0.000005 |
+| Opening tables       | 0.000011 |
+| System lock          | 0.000005 |
+| init                 | 0.000013 |
+| optimizing           | 0.000002 |
+| statistics           | 0.000006 |
+| preparing            | 0.000004 |
+| executing            | 0.000001 |
+| Sending data         | 0.000109 |
+| end                  | 0.000003 |
+| query end            | 0.000002 |
+| closing tables       | 0.000004 |
+| freeing items        | 0.000045 |
+| logging slow query   | 0.000002 |
+| cleaning up          | 0.000002 |
++----------------------+----------+
+我们发现耗时最长的是sending data这一步，使用profiling一眼看出问题所在

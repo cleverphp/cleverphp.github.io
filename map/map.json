@@ -22,7 +22,8 @@
 		],
 		
 		"mysql" :[
-			{"title":"应用myisampack压缩表，可极大地减少存储空间","file":"myisampack"}
+			{"title":"应用myisampack压缩表，可极大地减少存储空间","file":"myisampack"},
+			{"title":"mysql内置的性能分析工具","file":"profiling"}
 		],
 		"redis" :[
 			{"title":"Redis简单用法","file":"simple-use"}
