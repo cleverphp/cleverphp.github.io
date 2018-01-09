@@ -8,7 +8,8 @@
 			{"title":"策略模式（Strategy Pattern）","file":"design-strategy"},
 			{"title":"观察者模式（Observer Pattern）","file":"design-observer"},
 			{"title":"重构参考的代码块","file":"design-pattern"},
-			{"title":"一些较少遇到的用法","file":"little-usage"}
+			{"title":"一些较少遇到的用法","file":"little-usage"},
+			{"title":"laravel在windows下使用可能遇到的问题","file":"laravel-scratch"},
 
 		],
 		"js" : [

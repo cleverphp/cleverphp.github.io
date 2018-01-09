@@ -1,0 +1,17 @@
+ Syntax error or access violation: 1071 Specified key was too long; max key length is 1000 bytes (SQL: alter table `users` add unique `users_email_unique`(`email`)
+
+如果遇到这种问题，可以在启动服务前加上
+
+Schema::defaultStringLength(191);
+
+注意引入laravel/support/facades/schema
+
+-----------
+
+安装laravel十分简单，在php开启7.0，基本就可以composer global require 'laravel/installer'
+
+----
+laravel new app
+
+---
+据使用经验来看，此框架相当高效，快速开发的最佳选择！
