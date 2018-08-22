@@ -1,0 +1,55 @@
+安装：
+1.安装erlang
+2.安装rabbitMQ
+3.安装AMQP扩展
+使用:
+1.安装类库，可以使用composer install
+
+{
+    "require": {
+        "php-amqplib/php-amqplib": ">=2.6.1"
+    }
+}
+
+2.类库的简单使用
+
+消费者端:
+
+<?php
+    
+    require_once __DIR__ . '/vendor/autoload.php';
+    use PhpAmqpLib\Connection\AMQPStreamConnection;
+    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+    $channel = $connection->channel(); //信道的建立
+    $channel->queue_declare('hello', false, false, false, false); 
+    echo " [*] Waiting for messages. To exit press CTRL+C\n";
+    $callback = function ($msg) {
+        echo ' [x] Received ', $msg->body, "\n"; //消息的处理
+    };
+    $channel->basic_consume('hello', '', false, true, false, false, $callback);
+    while (count($channel->callbacks)) {
+        $channel->wait();
+    }
+    $channel->close();
+    $connection->close();
+
+?>
+
+生产者端（一般是用户):
+
+<?php
+
+    require_once __DIR__ . '/vendor/autoload.php';
+    use PhpAmqpLib\Connection\AMQPStreamConnection;
+    use PhpAmqpLib\Message\AMQPMessage;
+    $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+    $channel = $connection->channel();
+    $channel->queue_declare('hello', false, false, false, false);
+    $msg = new AMQPMessage('Hello World!');
+    $channel->basic_publish($msg, '', 'hello');
+    echo " [x] Sent 'Hello World!'\n";
+    $channel->close();
+    $connection->close();
+
+?>
+

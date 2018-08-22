@@ -29,6 +29,10 @@
 		"redis" :[
 			{"title":"Redis简单用法","file":"simple-use"}
 
+		],
+		"rabbitMQ" :[
+			{"title":"RabbitMQ简单用法","file":"simple-rabbit"}
+
 		]
 	}
 
