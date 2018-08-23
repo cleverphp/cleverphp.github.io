@@ -33,6 +33,10 @@
 		"rabbitMQ" :[
 			{"title":"RabbitMQ简单用法","file":"simple-rabbit"}
 
+		],
+		"elasticsearch" :[
+			{"title":"ElasticSearch简单用法","file":"simple-elastic"}
+
 		]
 	}
 

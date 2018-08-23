@@ -1,0 +1,103 @@
+1.安装
+从官网下载zip解压后运行bin/elasticsearch
+检测服务是否成功开启，curl localhost:9200
+
+{
+  "name" : "zaleyDV",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "xUT6qk6IRxKHhYH0gGxD4Q",
+  "version" : {
+    "number" : "6.3.2",
+    "build_flavor" : "default",
+    "build_type" : "zip",
+    "build_hash" : "053779d",
+    "build_date" : "2018-07-20T05:20:23.451332Z",
+    "build_snapshot" : false,
+    "lucene_version" : "7.3.1",
+    "minimum_wire_compatibility_version" : "5.6.0",
+    "minimum_index_compatibility_version" : "5.0.0"
+  },
+  "tagline" : "You Know, for Search"
+}
+
+2.php端快速搭建，此处采用laravel环境
+
+composer.json 新增如下内容
+
+ "require": {
+        "php": ">=7.0.0",
+        "fideloper/proxy": "~3.3",
+        "laravel/framework": "5.5.*",
+        "laravel/tinker": "~1.0",
+        "elasticsearch/elasticsearch":"~5.0"
+ },
+
+ 3.写入内容，以及获取索引内容
+
+ public function createES(){
+
+    	$client = ClientBuilder::create()->build();
+
+    	$param = [
+
+    		'index' => 'test_index', //可以看成数据库
+    		'type' => 'test_type', //可以看成表
+    		'id' => 'test_id', //可以看成主键
+    		'body' => ['testField'=>'test document'], //存储的内容
+
+    	];
+
+    	$res = $client->index($param); //建立索引
+
+    	dump($res);
+
+ }
+
+ 成功建立索引后的结果
+
+ array:8 [▼
+  "_index" => "test_index"
+  "_type" => "test_type"
+  "_id" => "test_id"
+  "_version" => 1
+  "result" => "created"
+  "_shards" => array:3 [▼
+    "total" => 2
+    "successful" => 1
+    "failed" => 0
+  ]
+  "_seq_no" => 0
+  "_primary_term" => 1
+]
+
+public function fetchES(){
+    	
+    	$client = ClientBuilder::create()->build();
+
+    	$param = [
+
+    		'index' => 'test_index',
+    		'type' => 'test_type', 
+    		'id' => 'test_id'
+
+    	];
+
+    	$res = $client->get($param); //获取索引id的内容s
+
+    	dump($res);
+
+
+}
+
+成功获取后的结果
+
+array:6 [▼
+  "_index" => "test_index"
+  "_type" => "test_type"
+  "_id" => "test_id"
+  "_version" => 1
+  "found" => true
+  "_source" => array:1 [▼
+    "testField" => "test document"
+  ]
+]

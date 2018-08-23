@@ -2,9 +2,9 @@ var app = angular.module("cleverphp",['ngSanitize','hljs']);
 
 app.controller("main",function($scope,$http){
 
-		$scope.nav = ['PHP','JS','HTML5','CSS','MYSQL','REDIS','RabbitMQ'];
+		$scope.nav = ['PHP','JS','HTML5','CSS','MYSQL','REDIS','RabbitMQ','ElasticSearch'];
 
-		$scope.navClass = [1,0,0,0,0,0];
+		$scope.navClass = [1,0,0,0,0,0,0,0];
 
 		$scope.content = '';
 
@@ -132,6 +132,9 @@ function initMap(num){
 					break;
 				case 6:
 					listLeft('rabbitMQ');
+					break;
+				case 7:
+					listLeft('elasticsearch');
 					break;
 				default:
 					break;
