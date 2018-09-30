@@ -1,0 +1,45 @@
+写出算法不难，但是这样的算法面临一个很大的性能问题，如何优化确实需要技巧了
+
+namespace app\index\controller;
+use think\Config;
+
+class Index
+{
+	private $num = 1;
+
+    public function index()
+    {
+
+    	//返回axxa这样的回文数最大长度
+    	
+    	$str="axnmxa";
+
+    	$this->getNum($str);
+
+        return view('index/index',[
+        	'css'=>'index',
+        	'js'=>'index',
+        	'num'=>$this->num
+        ]);
+    }
+
+    private function getNum($str){
+
+    	if($str == strrev($str)):
+    		if(strlen($str) > $this->num){
+    			$this->num = strlen($str);
+    		}
+    	endif;
+
+    	for($i=0;$i<strlen($str);$i++):
+    		$charArr = [];
+			for($j=0;$j<strlen($str);$j++):
+				$charArr[] = $str[$j];
+			endfor;
+    		array_splice($charArr,$i,1);
+    		$this->getNum(implode($charArr));
+    	endfor;
+
+    }
+
+}
